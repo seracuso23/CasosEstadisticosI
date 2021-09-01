@@ -1,0 +1,193 @@
+---
+title: "Impacto de la Crisis Sanitaria por COVID-19 sobre el Activo Neto"
+bibliography: references.bib
+link-citations: true
+date: "`r format(Sys.Date(),'%d/%m/%y')`"
+header-includes:
+   - \usepackage[spanish]{babel}
+   - \usepackage{booktabs}
+   - \usepackage{multirow}
+   - \usepackage{float}
+author:
+  - Sergio Cubero-Soto, Estadística, Universidad de Costa Rica
+abstract: >
+ por definir  
+output: 
+ bookdown::pdf_document2: 
+    citation_package: biblatex
+    toc: no
+    keep_tex: yes
+    toc_depth: 4
+    fig_width: 8
+    fig_height: 4
+    fig_caption: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+
+options(scipen = 999)
+
+knitr::opts_chunk$set(echo = F, warning = F, message = F,comment = "",fig.pos = "!H")
+
+setwd("~/Google Drive/Mi unidad/1.Maestria II Ciclo 2021/Curso de Analisis De Casos")
+
+
+```
+
+```{r}
+
+library(tidyverse)
+library(forecast)
+library(lubridate)
+library(readxl)
+library(xts)
+library(seasonal)
+
+```
+
+# Introducción
+
+La crisis sanitaria por el COVID 19 ha impactado la  conducta de los diferentes agentes económicos las cuales son importantes identificar ya  que podrían profundizar aún más la crisis económica que se desarrolla actualmente. Este cambio en las conductas se observa desde el primer caso de COVID - 19 en el país y aún persiste en el 2021, en gran parte debido a la incertidumbre sobre el futuro de la pandemia, en términos de duración y profundidad.
+
+Países como Costa Rica se han visto severamente afectados por esta crisis sanitaria y económica ya que poseen una apertura comercial internacional bastante alta y los expone a choques en la economía internacional, de acuerdo con el BCCR, gran medida de estos choque de las economías externas se deben a las medidas sanitarias impuestas por las grande economías mundiales como medida para evitar la propagación del virus, ocasionando la interrupción de la producción y distribución global, así como el cierre de fronteras, esta última con severas consecuencias en el sector turístico de Costa Rica [@bccr1].
+
+Aunado a esto, las familias se vieron severamente impactadas por esta interrupción provocando una disminución en sus ingresos debido al impacto negativo que tiene la crisis en el mercado laboral, debido a lo anterior los hogares mostraron una reducción en el consumo de bienes y servicios [@bccr1].
+
+Los bancos centrales del mundo, como medida de reactivación de la economía, especialmente, por la vía del otorgamiento del crédito para consumo o productivo, establecieron una reducción en las tasas de interés, tomando una posición de política monetaria expansiva y contra cíclico; Costa Rica es uno de los países que siguió esta vía para atenuar el decaimiento de la actividad económica.
+
+Con respecto a los mercados financieros internacionales, la incertidumbre de la pandemia a provocado un gran volatilidad, ya que los agentes económicos buscan refugiarse en activos líquidos, que de acuerdo con el Banco Central de Costa Rica [@bccr1] :
+
+> *esto trae como consecuencia aumento de la prima por riesgo sobre la deuda de mercados emergentes, que ha contrarrestado para esos países la caída en las tasas de interés en las economías avanzadas.*
+
+Conforme la pandemia por COVID-19 evoluciona, las medidas sanitarias se flexibilizan para mitigar la crisis económica ocasionada. De acuerdo con el BCCR en la revisión del Programa Macroeconómico 2021-2022 [@bccr2], el desempeño de la economía Costarricense muestra mejoras con respecto al año 2020 en aspectos como el desempleo, exportaciones  y la recaudación fiscal, sin embargo, se mantiene la incertidumbre de la duración de la pandemia y su rumbo en términos sanitarios, ya que como afirman muchos especialistas el país el aumento en los casos puede ocasionar una tercera ola [@ccp3].
+
+En Costa Rica, dada la crisis económica y sanitaria, los agentes económicos, como es de esperarse en tiempos de crisis e incertidumbre, optan por tomar una posición de refugiarse en activos líquidos y menos en ahorros de depósito a plazo [@bccr2] . Esta conducta está fundamentada ya que los agentes desean tener el dinero disponible inmediatamente para hacer frente a cualquier situación inesperada provocada por la crisis sanitaria y económica. De acuerdo a los datos de la SUGEVAL en el informe del mercado de valores de Costa Rica I Trimestre 2021 [@sugeval5] :
+
+> La industria de fondos de inversión reportó al primer trimestre del año 2021 un crecimiento del 22 por ciento en el activo neto administrado con respecto al mismo periodo del año 2020, donde los fondos de inversión del mercado de dinero son los que reportan el mayor crecimiento (38 por ciento).
+
+Los activos líquidos se pueden distinguir entre ahorros a la vista en cuentas de ahorros y/o corrientes (administrados por el sistema bancario) y las inversiones en fondos de inversión, estos últimos se desarrollan en el mercado de valores para lo cual el inversionista debe recurrir a las Sociedades de Administración de Fondos de Inversión, que como su nombre lo expresa, su función es administrar fondos de inversión.
+
+Como se mencionó anteriormente, los agentes económicos en épocas de crisis económica buscan refugiarse en activos líquidos, especialmente, los que muestran tasas mayores rendimientos, por lo cual, el presente documento brinda detalle exclusivamente sobre los fondos de inversión financieros a la vista de corto plazo (compra de títulos valores), en los cuales se diferencian por la facilidad que tiene el inversionista para retirar el dinero cuando lo desea, en otras palabras, no está limitado a un plazo [@bncr4] .
+
+Los fondos de inversión financieros a la vista de corto plazo se puede evaluar por medio de activo neto de inversión, el cual representa el dinero total invertido (participación) por las personas y que están respaldados por títulos valores [@bncr4] .
+
+El rendimiento del fondo se define a partir de los títulos valores que componen y que se negocian en el mercado. Los títulos valores se negocian en el mercado de valores y tienen un precio el cual se establece de acuerdo a las expectativas de los agentes que los venden y su contraparte, el comprador, y a partir de este precio se calculan los rendimientos, y el conjunto de estos rendimientos definen las rentabilidades de las participaciones en el fondo.
+
+Es importante resaltar que cada título que se negocia en el mercado de valores tiene una tasa, la cual varía de acuerdo al mercado y se ve influencia en cierto grado (no de forma directa ni unitaria) por la tasa de política monetaria que dicta el BCCR.
+
+El BCCR en el 2021 tomó la decisión de realizar una política monetaria expansiva aún màs profunda [@bccr2]:
+
+>   ... Esta política busca contribuir en el proceso de recuperación de la actividad económica y garantizar la estabilidad del sistema financiero. Así, el Banco Central ha reducido su Tasa de Política Monetaria en 450 puntos base (p.b.) entre marzo de 2019 y julio de 2021. 
+
+Esta decisión del ente rector de política monetaria se transmite de manera directa a las tasa activas y pasivas del sistema financiero y por ende afecta negativamente los rendimientos de los activos líquidos. 
+
+Dado lo anterior, existe un riesgo materializable de una reducción en el saldo activo neto administrado ocasionado por una salida de inversionista producto de la crisis sanitaria y económica provocada por el COVID-19. Este evento podría producir una profundización de la crisis económica incidiendo en las políticas macroprudenciales del sistema financiero.
+
+Este trabajo tiene como objetivo estimar el efecto de una potencial caída abrupta de los saldos del Activo Neto Administrado de los Fondos de Inversión del Mercado de Dinero en colones y dólares en Costa Rica para diciembre 2021, con el fin que los entes reguladores tomen medidas preventivas ante este escenario.
+
+# Métodos
+
+## Datos
+
+```{r}
+
+SeriesDatos <- read_excel("~/Google Drive/Mi unidad/1.Maestria II Ciclo 2021/Curso de Analisis De Casos/Caso II/Datos/Base Datos.xlsx")%>%
+  janitor::clean_names('big_camel')%>%
+  mutate(ActivoNeto=paste0(ActivoNeto,"-01"))%>%
+  rename('ActNetCRC'=Crc,
+         'ActNetUSD'=Usd)%>%
+  as.data.frame()
+
+
+actnetcrc<- ts(SeriesDatos[,2],start =c(2001,2),end=c(2021,7), frequency = 12)
+actnetusd<- ts(SeriesDatos[,3],start =c(2001,2),end=c(2021,7), frequency = 12)
+actnet <- cbind(actnetcrc,actnetusd)  
+```
+
+```{r}
+autoplot(actnet,facets=TRUE) +
+  ggtitle("Costa Rica: Evolución de los saldos del Activo Neto Administrado de los Fondos de Inversión del Mercado de Dinero\n en colones y dolares, febrero-2001 a julio-2021") +
+  xlab("Mes") +
+  ylab("Millones")+
+  theme_bw()
+
+qplot(actnetcrc, actnetusd, data=as.data.frame(actnet)) +
+  ylab("Dolares") + xlab("Colones")+
+  theme_bw()
+```
+
+```{r}
+
+fitcrc<-actnetcrc %>% seas(x11="") 
+
+fitcrc%>%
+  autoplot() + xlab("Year") +
+  ggtitle("Descomposición de los saldos del Activo Neto Administrado de los Fondos de Inversión del Mercado de Dinero\n en colones")+
+  theme_bw()
+
+autoplot(actnetcrc, series="Data") +
+  autolayer(trendcycle(fitcrc), series="Tendencia") +
+  #autolayer(seasadj(fitcrc), series="Ajustada Estacionalmente") +
+  xlab("Year") + ylab("New orders index") +
+  ggtitle("saldos del Activo Neto Administrado de los Fondos de Inversión del Mercado de Dinero\n en colones") +
+  scale_colour_manual(values=c("gray","blue","red"),
+             breaks=c("Data","Ajustada Estacionalmente","Tendencia"))+
+  theme_bw()
+
+fitcrc %>% 
+  seasonal() %>% 
+  ggsubseriesplot() + 
+  ylab("Estacionalidad")+
+  theme_bw()
+
+```
+
+```{r}
+fitusd<- actnetusd %>% seas(x11="") 
+
+fitusd%>%
+  autoplot() + xlab("Year") +
+  ggtitle("Descomposición de los saldos del Activo Neto Administrado de los Fondos de Inversión del Mercado de Dinero\n en dolares")+
+  theme_bw()
+
+autoplot(actnetusd, series="Data") +
+  autolayer(trendcycle(fitusd), series="Tendencia") +
+  #autolayer(seasadj(fitusd), series="Ajustada Estacionalmente") +
+  xlab("Mes") + ylab("Saldos") +
+  ggtitle("saldos del Activo Neto Administrado de los Fondos de Inversión del Mercado de Dinero\n en dolares") +
+  scale_colour_manual(values=c("gray","blue","red"),
+             breaks=c("Data","Ajustada Estacionalmente","Tendencia"))+
+  theme_bw()
+
+fitusd %>% 
+  seasonal() %>% 
+  ggsubseriesplot() + 
+  ylab("Estacionalidad")+
+  theme_bw()
+
+
+```
+
+## Modelos de Pronóstico
+
+### Lineales
+
+### No Lineales
+
+### Minería de Datos
+
+## Prueba de tensión
+
+# Resultados
+
+# Conclusión
+
+# Bibliografìa
+
+[\<https://www.sugeval.fi.cr/informesmercado/DocsInformesemestraldemercado/I%20informe%20semestral%20del%20mercado%20de%20valores%202020.pdf\>](https://www.sugeval.fi.cr/informesmercado/DocsInformesemestraldemercado/I%20informe%20semestral%20del%20mercado%20de%20valores%202020.pdf){.uri}
+
+[\<https://cran.r-project.org/web/views/TimeSeries.html\>](https://cran.r-project.org/web/views/TimeSeries.html){.uri}
+
+\newpage

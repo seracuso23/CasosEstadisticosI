@@ -1,0 +1,183 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Impacto de la Crisis Sanitaria por COVID-19 sobre el Activo Neto},
+  pdfauthor={Sergio Cubero-Soto, Estadística, Universidad de Costa Rica},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage[spanish]{babel}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{float}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{biblatex}
+\addbibresource{references.bib}
+
+\title{Impacto de la Crisis Sanitaria por COVID-19 sobre el Activo Neto}
+\author{Sergio Cubero-Soto, Estadística, Universidad de Costa Rica}
+\date{31/08/21}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+por definir
+\end{abstract}
+
+\hypertarget{introducciuxf3n}{%
+\section{Introducción}\label{introducciuxf3n}}
+
+La crisis sanitaria por el COVID 19 ha impactado la~ conducta de los diferentes agentes económicos las cuales son importantes identificar ya~ que podrían profundizar aún más la crisis económica que se desarrolla actualmente. Este cambio en las conductas se observa desde el primer caso de COVID - 19 en el país y aún persiste en el 2021, en gran parte debido a la incertidumbre sobre el futuro de la pandemia, en términos de duración y profundidad.
+
+Países como Costa Rica se han visto severamente afectados por esta crisis sanitaria y económica ya que poseen una apertura comercial internacional bastante alta y los expone a choques en la economía internacional, de acuerdo con el BCCR, gran medida de estos choque de las economías externas se deben a las medidas sanitarias impuestas por las grande economías mundiales como medida para evitar la propagación del virus, ocasionando la interrupción de la producción y distribución global, así como el cierre de fronteras, esta última con severas consecuencias en el sector turístico de Costa Rica \autocite{bccr1}.
+
+Aunado a esto, las familias se vieron severamente impactadas por esta interrupción provocando una disminución en sus ingresos debido al impacto negativo que tiene la crisis en el mercado laboral, debido a lo anterior los hogares mostraron una reducción en el consumo de bienes y servicios \autocite{bccr1}.
+
+Los bancos centrales del mundo, como medida de reactivación de la economía, especialmente, por la vía del otorgamiento del crédito para consumo o productivo, establecieron una reducción en las tasas de interés, tomando una posición de política monetaria expansiva y contra cíclico; Costa Rica es uno de los países que siguió esta vía para atenuar el decaimiento de la actividad económica.
+
+Con respecto a los mercados financieros internacionales, la incertidumbre de la pandemia a provocado un gran volatilidad, ya que los agentes económicos buscan refugiarse en activos líquidos, que de acuerdo con el Banco Central de Costa Rica \autocite{bccr1} :
+
+\begin{quote}
+\emph{esto trae como consecuencia aumento de la prima por riesgo sobre la deuda de mercados emergentes, que ha contrarrestado para esos países la caída en las tasas de interés en las economías avanzadas.}
+\end{quote}
+
+Conforme la pandemia por COVID-19 evoluciona, las medidas sanitarias se flexibilizan para mitigar la crisis económica ocasionada. De acuerdo con el BCCR en la revisión del Programa Macroeconómico 2021-2022 \autocite{bccr2}, el desempeño de la economía Costarricense muestra mejoras con respecto al año 2020 en aspectos como el desempleo, exportaciones~ y la recaudación fiscal, sin embargo, se mantiene la incertidumbre de la duración de la pandemia y su rumbo en términos sanitarios, ya que como afirman muchos especialistas el país el aumento en los casos puede ocasionar una tercera ola \autocite{ccp3}.
+
+En Costa Rica, dada la crisis económica y sanitaria, los agentes económicos, como es de esperarse en tiempos de crisis e incertidumbre, optan por tomar una posición de refugiarse en activos líquidos y menos en ahorros de depósito a plazo \autocite{bccr2} . Esta conducta está fundamentada ya que los agentes desean tener el dinero disponible inmediatamente para hacer frente a cualquier situación inesperada provocada por la crisis sanitaria y económica. De acuerdo a los datos de la SUGEVAL en el informe del mercado de valores de Costa Rica I Trimestre 2021 \autocite{sugeval5} :
+
+\begin{quote}
+La industria de fondos de inversión reportó al primer trimestre del año 2021 un crecimiento del 22 por ciento en el activo neto administrado con respecto al mismo periodo del año 2020, donde los fondos de inversión del mercado de dinero son los que reportan el mayor crecimiento (38 por ciento).
+\end{quote}
+
+Los activos líquidos se pueden distinguir entre ahorros a la vista en cuentas de ahorros y/o corrientes (administrados por el sistema bancario) y las inversiones en fondos de inversión, estos últimos se desarrollan en el mercado de valores para lo cual el inversionista debe recurrir a las Sociedades de Administración de Fondos de Inversión, que como su nombre lo expresa, su función es administrar fondos de inversión.
+
+Como se mencionó anteriormente, los agentes económicos en épocas de crisis económica buscan refugiarse en activos líquidos, especialmente, los que muestran tasas mayores rendimientos, por lo cual, el presente documento brinda detalle exclusivamente sobre los fondos de inversión financieros a la vista de corto plazo (compra de títulos valores), en los cuales se diferencian por la facilidad que tiene el inversionista para retirar el dinero cuando lo desea, en otras palabras, no está limitado a un plazo \autocite{bncr4} .
+
+Los fondos de inversión financieros a la vista de corto plazo se puede evaluar por medio de activo neto de inversión, el cual representa el dinero total invertido (participación) por las personas y que están respaldados por títulos valores \autocite{bncr4} .
+
+El rendimiento del fondo se define a partir de los títulos valores que componen y que se negocian en el mercado. Los títulos valores se negocian en el mercado de valores y tienen un precio el cual se establece de acuerdo a las expectativas de los agentes que los venden y su contraparte, el comprador, y a partir de este precio se calculan los rendimientos, y el conjunto de estos rendimientos definen las rentabilidades de las participaciones en el fondo.
+
+Es importante resaltar que cada título que se negocia en el mercado de valores tiene una tasa, la cual varía de acuerdo al mercado y se ve influencia en cierto grado (no de forma directa ni unitaria) por la tasa de política monetaria que dicta el BCCR.
+
+El BCCR en el 2021 tomó la decisión de realizar una política monetaria expansiva aún màs profunda~\autocite{bccr2}:
+
+\begin{quote}
+~~\ldots{} Esta política busca contribuir en el proceso de recuperación de la actividad económica y garantizar la estabilidad del sistema financiero. Así, el Banco Central ha reducido su Tasa de Política Monetaria en 450 puntos base (p.b.) entre marzo de 2019 y julio de 2021.~
+\end{quote}
+
+Esta decisión del ente rector de política monetaria se transmite de manera directa a las tasa activas y pasivas del sistema financiero y por ende afecta negativamente los rendimientos de los activos líquidos.~
+
+Dado lo anterior, existe un riesgo materializable de una reducción en el saldo activo neto administrado ocasionado por una salida de inversionista producto de la crisis sanitaria y económica provocada por el COVID-19. Este evento podría producir una profundización de la crisis económica incidiendo en las políticas macroprudenciales del sistema financiero.
+
+Este trabajo tiene como objetivo estimar el efecto de una potencial caída abrupta de los saldos del Activo Neto Administrado de los Fondos de Inversión del Mercado de Dinero en colones y dólares en Costa Rica para diciembre 2021, con el fin que los entes reguladores tomen medidas preventivas ante este escenario.
+
+\hypertarget{muxe9todos}{%
+\section{Métodos}\label{muxe9todos}}
+
+\hypertarget{datos}{%
+\subsection{Datos}\label{datos}}
+
+\includegraphics{Caso-I_files/figure-latex/unnamed-chunk-3-1.pdf} \includegraphics{Caso-I_files/figure-latex/unnamed-chunk-3-2.pdf}
+
+\includegraphics{Caso-I_files/figure-latex/unnamed-chunk-4-1.pdf} \includegraphics{Caso-I_files/figure-latex/unnamed-chunk-4-2.pdf} \includegraphics{Caso-I_files/figure-latex/unnamed-chunk-4-3.pdf}
+
+\includegraphics{Caso-I_files/figure-latex/unnamed-chunk-5-1.pdf} \includegraphics{Caso-I_files/figure-latex/unnamed-chunk-5-2.pdf} \includegraphics{Caso-I_files/figure-latex/unnamed-chunk-5-3.pdf}
+
+\hypertarget{modelos-de-pronuxf3stico}{%
+\subsection{Modelos de Pronóstico}\label{modelos-de-pronuxf3stico}}
+
+\hypertarget{lineales}{%
+\subsubsection{Lineales}\label{lineales}}
+
+\hypertarget{no-lineales}{%
+\subsubsection{No Lineales}\label{no-lineales}}
+
+\hypertarget{mineruxeda-de-datos}{%
+\subsubsection{Minería de Datos}\label{mineruxeda-de-datos}}
+
+\hypertarget{prueba-de-tensiuxf3n}{%
+\subsection{Prueba de tensión}\label{prueba-de-tensiuxf3n}}
+
+\hypertarget{resultados}{%
+\section{Resultados}\label{resultados}}
+
+\hypertarget{conclusiuxf3n}{%
+\section{Conclusión}\label{conclusiuxf3n}}
+
+\hypertarget{bibliografuxeca}{%
+\section{Bibliografìa}\label{bibliografuxeca}}
+
+\href{https://www.sugeval.fi.cr/informesmercado/DocsInformesemestraldemercado/I\%20informe\%20semestral\%20del\%20mercado\%20de\%20valores\%202020.pdf}{\textless https://www.sugeval.fi.cr/informesmercado/DocsInformesemestraldemercado/I\%20informe\%20semestral\%20del\%20mercado\%20de\%20valores\%202020.pdf\textgreater{}}
+
+\href{https://cran.r-project.org/web/views/TimeSeries.html}{\textless https://cran.r-project.org/web/views/TimeSeries.html\textgreater{}}
+
+\newpage
+
+\printbibliography
+
+\end{document}
