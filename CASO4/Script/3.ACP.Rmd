@@ -1,0 +1,192 @@
+---
+title: "2.ACP: Caso 4"
+author: "Sergio Cubero"
+output: 
+  html_document: 
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F, error = F)
+options(scipen = 999)
+
+library(summarytools)
+library(tidyverse)
+library(FactoMineR)
+library(factoextra)
+
+st_options(style='rmarkdown',
+           plain.ascii = F,
+           lang = "es"
+           )
+```
+
+## Data
+
+```{r}
+load("/Volumes/GoogleDrive/Mi unidad/1.Maestria II Ciclo 2021/Curso de Analisis De Casos/Caso4/Data/DatosCurvaSoberana.RData")
+
+CurvSobWider<-CurvSobWider%>%
+  filter(!is.na(SemanaFin))%>%
+  mutate(
+    nombrefila=paste(SemanaInicio,SemanaFin,sep=" a ")
+  )%>%
+  select(-archivo,-Hoja,-Anio,-SemanaInicio,-SemanaFin)%>%
+  column_to_rownames(var = "nombrefila")
+```
+
+## ACP-prcomp
+
+```{r}
+res.pca <- prcomp(CurvSobWider, scale. = TRUE)
+```
+
+### Cargas
+```{r}
+# loadings
+cargas<-res.pca$rotation%>%
+  as.data.frame()
+
+cargas%>%
+  DT::datatable()
+```
+
+
+### Valores Propios
+```{r}
+# sqrt of eigenvalues
+df_eigen<-data.frame(
+  sqrt_eigen=res.pca$sdev,
+  eigen=(res.pca$sdev)^2
+)
+
+df_eigen%>%
+  DT::datatable()
+```
+
+
+### Score
+```{r}
+score_pca<-res.pca$x%>%
+  as.data.frame()%>%
+  select(PC1,PC2,PC3)
+
+score_pca%>%
+  DT::datatable()
+```
+
+
+## ACP-princomp
+
+```{r}
+
+CurvSobWider2<-CurvSobWider%>%
+  select(1,30,90,359,718,1077,1436,1795,2154,2513,2872,3231,3600)
+res.pca <- princomp(CurvSobWider2, cor = TRUE)
+```
+
+### Cargas
+```{r}
+# loadings
+cargas<-res.pca$loadings
+
+cargas
+```
+
+
+### Valores Propios
+```{r}
+# sqrt of eigenvalues
+df_eigen<-data.frame(
+  sqrt_eigen=res.pca$sdev,
+  eigen=(res.pca$sdev)^2
+)
+
+df_eigen%>%
+  DT::datatable()
+```
+
+
+### Score
+```{r}
+score_pca<-res.pca$score%>%
+  as.data.frame()%>%
+  select(Comp.1,Comp.2,Comp.3)
+
+score_pca%>%
+  DT::datatable()
+```
+
+## ACP-PCA
+```{r}
+
+res.pca <- PCA(CurvSobWider, graph = F)
+
+```
+
+### Cargas
+
+```{r}
+cargas<-sweep(res.pca$var$coord,2,sqrt(res.pca$eig[1:ncol(res.pca$var$coord),1]),FUN="/")
+
+cargas%>%
+  DT::datatable()
+```
+
+
+### Valores Propios
+
+```{r}
+eig.val <- get_eigenvalue(res.pca)
+
+eig.val%>%
+  DT::datatable()
+```
+
+```{r}
+fviz_eig(res.pca, addlabels = TRUE, ylim = c(0, 100))
+```
+
+
+### Correlacion entre Componentes y Variables
+
+```{r}
+# correlations between variables and PCs
+cor_pca<- res.pca$var$coord
+
+cor_pca%>%
+  DT::datatable()
+```
+
+```{r}
+fviz_pca_var(res.pca, col.var = "black")
+```
+
+```{r}
+# Contributions of variables to PC1
+fviz_contrib(res.pca, choice = "var", axes = 1, top = 10)
+# Contributions of variables to PC2
+fviz_contrib(res.pca, choice = "var", axes = 2, top = 10)
+# Contributions of variables to PC3
+fviz_contrib(res.pca, choice = "var", axes = 3, top = 10)
+```
+
+
+### Score
+
+```{r}
+score_pca<-res.pca$ind$coord
+
+score_pca%>%
+  DT::datatable()
+```
+
+
+```{r}
+fviz_pca_ind(res.pca, col.ind = "cos2", 
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE # Avoid text overlapping (slow if many points)
+             )
+```
